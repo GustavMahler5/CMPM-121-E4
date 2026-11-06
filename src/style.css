@@ -54,7 +54,9 @@ body {
 
 .cabinet {
   display: grid;
-  grid-template-columns: var(--panel-width) var(--screen-width)
+  grid-template-columns:
+    var(--panel-width)
+    var(--screen-width)
     var(--panel-width);
   align-items: center;
   perspective: 900px;
@@ -69,12 +71,14 @@ body {
   border: 1px solid var(--panel-edge);
   border-radius: var(--radius);
   background: var(--panel-bg);
-  box-shadow: 0 0 24px var(--panel-glow), inset 0 0 18px
-    var(--panel-glow-soft);
+  box-shadow:
+    0 0 24px var(--panel-glow),
+    inset 0 0 18px var(--panel-glow-soft);
   transition: opacity 400ms, transform 400ms;
 }
 
 /* Each panel swings toward the screen and slightly overlaps its edge. */
+
 .panel-left {
   transform-origin: right center;
   transform: translateX(var(--overlap)) rotateY(var(--tilt));
@@ -82,7 +86,8 @@ body {
 
 .panel-right {
   transform-origin: left center;
-  transform: translateX(calc(-1 * var(--overlap)))
+  transform:
+    translateX(calc(-1 * var(--overlap)))
     rotateY(calc(-1 * var(--tilt)));
 }
 
@@ -125,10 +130,15 @@ output {
 }
 
 .pip {
+  width: 22px;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+  background: currentColor;
   color: var(--pink);
 }
 
 .cell {
+  flex: 1;
+  border-radius: 2px;
   color: var(--yellow);
 }
 
@@ -166,7 +176,9 @@ output {
   height: 640px;
   border-radius: var(--radius);
   overflow: hidden;
-  box-shadow: 0 0 0 2px var(--panel-edge), 0 0 40px var(--screen-glow);
+  box-shadow:
+    0 0 0 2px var(--panel-edge),
+    0 0 40px var(--screen-glow);
 }
 
 #game,
@@ -190,6 +202,14 @@ output {
   gap: 10px;
   font-size: 12px;
   color: var(--gray);
+}
+
+.stop-dot {
+  width: 12px;
+  height: 12px;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  flex-shrink: 0;
 }
 
 .stop[data-state="cleared"] {
@@ -217,28 +237,40 @@ output {
   color: var(--red);
 }
 
+.boss[hidden] {
+  display: none;
+}
+
 .boss h2 {
   color: inherit;
 }
 
-.boss-meter {
+#boss-fill {
+  display: block;
+  width: 100%;
   height: 10px;
+  appearance: none;
   border: 1px solid currentColor;
   border-radius: 2px;
+  background: transparent;
+  color: var(--red);
 }
 
-#boss-fill {
-  --fill: 1;
-  display: block;
-  height: 100%;
-  background: currentColor;
+#boss-fill::-webkit-progress-bar {
+  background: transparent;
+}
+
+#boss-fill::-webkit-progress-value {
+  background: var(--red);
   box-shadow: var(--glow);
-  transform-origin: left;
-  transform: scaleX(var(--fill));
-  transition: transform 120ms linear;
+}
+
+#boss-fill::-moz-progress-bar {
+  background: var(--red);
 }
 
 /* Sector banners flip down from the top of the screen, then fold away. */
+
 .banner {
   position: absolute;
   inset: 22% -6% auto;
@@ -302,6 +334,7 @@ output {
 }
 
 /* Impacts shake the whole cabinet; the panels keep their tilt while shaking. */
+
 .cabinet.shudder {
   animation: shudder 260ms linear;
 }
@@ -314,9 +347,11 @@ output {
   25% {
     transform: translate(-3px, 1px) rotateZ(-0.4deg);
   }
+
   50% {
     transform: translate(3px, -1px) rotateZ(0.4deg);
   }
+
   75% {
     transform: translate(-2px, 0) rotateZ(-0.2deg);
   }
@@ -327,10 +362,12 @@ output {
   50% {
     transform: translate(-9px, 3px) rotateX(4deg) rotateZ(-1deg);
   }
+
   30%,
   70% {
     transform: translate(9px, -3px) rotateX(-4deg) rotateZ(1deg);
   }
+
   90% {
     transform: translate(-3px, 1px);
   }
@@ -341,11 +378,13 @@ output {
     opacity: 0;
     transform: perspective(600px) rotateX(90deg);
   }
+
   15%,
   80% {
     opacity: 1;
     transform: perspective(600px) rotateX(0);
   }
+
   100% {
     opacity: 0;
     transform: perspective(600px) rotateX(-90deg);
@@ -366,6 +405,7 @@ output {
 }
 
 /* Narrow windows: stack the panels flat above and below the screen. */
+
 @media (max-width: 920px) {
   .cabinet {
     grid-template-columns: var(--screen-width);
