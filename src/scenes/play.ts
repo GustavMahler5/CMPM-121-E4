@@ -546,11 +546,6 @@ export class PlayScene extends Phaser.Scene implements Arena {
       "The lanes are open",
     );
 
-    console.log(
-      "victory lap: ship protected =",
-      this.run.bossDefeated,
-    );
-
     for (const bullet of this.bullets) {
       this.burst(
         bullet.x,
